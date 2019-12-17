@@ -1,14 +1,30 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Index from "@/views/Index.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home
+    name: "index",
+    component: Index
+  },
+  {
+    path: "/server-url",
+    name: "server-url",
+    component: () =>
+      import(
+        /* webpackChunkName: "server-url" */ "../views/jellyfin/JellyfinServerUrlView.vue"
+      )
+  },
+  {
+    path: "/users",
+    name: "users",
+    component: () =>
+        import(
+            /* webpackChunkName: "users" */ "../views/jellyfin/users/JellyfinUsersView.vue"
+            )
   },
   {
     path: "/about",

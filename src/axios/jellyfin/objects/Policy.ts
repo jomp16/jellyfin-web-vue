@@ -1,0 +1,35 @@
+export interface Policy {
+  IsAdministrator: boolean;
+  IsHidden: boolean;
+  IsDisabled: boolean;
+  BlockedTags: any[];
+  EnableUserPreferenceAccess: boolean;
+  AccessSchedules: any[];
+  BlockUnratedItems: any[];
+  EnableRemoteControlOfOtherUsers: boolean;
+  EnableSharedDeviceControl: boolean;
+  EnableRemoteAccess: boolean;
+  EnableLiveTvManagement: boolean;
+  EnableLiveTvAccess: boolean;
+  EnableMediaPlayback: boolean;
+  EnableAudioPlaybackTranscoding: boolean;
+  EnableVideoPlaybackTranscoding: boolean;
+  EnablePlaybackRemuxing: boolean;
+  EnableContentDeletion: boolean;
+  EnableContentDeletionFromFolders: any[];
+  EnableContentDownloading: boolean;
+  EnableSyncTranscoding: boolean;
+  EnableMediaConversion: boolean;
+  EnabledDevices: any[];
+  EnableAllDevices: boolean;
+  EnabledChannels: any[];
+  EnableAllChannels: boolean;
+  EnabledFolders: string[];
+  EnableAllFolders: boolean;
+  InvalidLoginAttemptCount: number;
+  LoginAttemptsBeforeLockout: number;
+  EnablePublicSharing: boolean;
+  RemoteClientBitrateLimit: number;
+  AuthenticationProviderId: string;
+  PasswordResetProviderId: string;
+}
