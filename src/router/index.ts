@@ -15,15 +15,23 @@ const routes = [
     name: "server-url",
     component: () =>
       import(
-        /* webpackChunkName: "server-url" */ "../views/jellyfin/JellyfinServerUrlView.vue"
+        /* webpackChunkName: "server-url" */ "@/views/jellyfin/JellyfinServerUrlView.vue"
       )
   },
   {
-    path: "/users",
-    name: "users",
+    path: "/login",
+    name: "login",
     component: () =>
       import(
-        /* webpackChunkName: "users" */ "../views/jellyfin/users/JellyfinUsersView.vue"
+        /* webpackChunkName: "login" */ "@/views/jellyfin/users/JellyfinLoginView.vue"
+      )
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: () =>
+      import(
+        /* webpackChunkName: "home" */ "@/views/jellyfin/users/JellyfinHomeView.vue"
       )
   },
   {
@@ -32,8 +40,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ "@/views/About.vue")
   }
 ];
 

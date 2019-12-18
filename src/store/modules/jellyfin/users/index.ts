@@ -3,13 +3,9 @@ import { User } from "@/axios/jellyfin/objects/User";
 import { JellyfinApi } from "@/axios/jellyfin/JellyfinApi";
 
 export default {
-  namespaced: true,
   state: new JellyfinUsersState(),
   getters: {},
   mutations: {
-    addUser(state: JellyfinUsersState, user: User) {
-      state.users.push(user);
-    },
     addUsers(state: JellyfinUsersState, users: User[]) {
       state.users.push(...users);
     },
@@ -20,14 +16,26 @@ export default {
   actions: {
     // @ts-ignore
     async loadUsers({ state, commit, rootState }) {
-      console.log(rootState);
       if (state.users.length === 0) {
-        let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl);
+        let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl, null);
 
         let users = await jellyfinApi.getPublicUsers();
 
         commit("addUsers", users);
       }
+    },
+    async loginWithUsername(
+      // @ts-ignore
+      { state, commit, rootState },
+      // @ts-ignore
+      { username, password }
+    ) {
+      let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl, null);
+      let response = await jellyfinApi.tryLoginWithUsername(username, password);
+
+      commit("setAccessToken", response.AccessToken);
+      commit("setCurrentUser", response.User);
+      commit("setSessionInfo", response.SessionInfo);
     }
   }
 };

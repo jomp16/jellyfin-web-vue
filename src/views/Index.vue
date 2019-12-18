@@ -4,8 +4,9 @@ import Component from "vue-class-component";
 
 @Component
 export default class Index extends Vue {
+  // noinspection JSUnusedGlobalSymbols
   mounted() {
-    if (!this.$store.getters["jellyfin/isLoggedIn"]) {
+    if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/server-url");
     } else {
       this.$router.push("/home");

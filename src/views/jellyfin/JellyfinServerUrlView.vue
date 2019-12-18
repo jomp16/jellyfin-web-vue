@@ -1,13 +1,19 @@
 <template>
   <section class="hero is-black is-fullheight">
+    <b-loading :is-full-page="true" :active.sync="showLoading" />
+
     <div class="hero-body">
       <div class="container">
+        <b-notification
+          aria-close-label="Close notification"
+          type="is-danger"
+          v-if="errorMessage !== null"
+        >
+          {{ errorMessage }}
+        </b-notification>
         <div class="columns is-centered">
           <figure class="image is-128x128">
-            <img
-              :src="require('@/assets/jellyfin_icon.png')"
-              alt="Jellyfin Icon"
-            />
+            <img :src="jellyfinImageURL" alt="Jellyfin Icon" />
           </figure>
         </div>
         <div class="columns is-centered">
@@ -16,8 +22,9 @@
               label="Server URL"
               type="is-white"
               custom-class="has-text-white"
+              label-for="serverURL"
             >
-              <b-input v-model="serverURL" required />
+              <b-input v-model="serverURL" id="serverURL" required />
             </b-field>
           </div>
         </div>
@@ -33,28 +40,34 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue } from "vue-property-decorator";
 import Component from "vue-class-component";
 
 @Component
 export default class JellyfinServerUrlView extends Vue {
-  get serverURL() {
+  private jellyfinImageURL = require("@/assets/jellyfin_icon.png");
+  private showLoading: boolean = false;
+  private errorMessage: string | null = null;
+
+  get serverURL(): string {
     return this.$store.state.jellyfin.serverUrl;
   }
 
-  set serverURL(value) {
-    this.$store.commit("jellyfin/updateServerURL", value);
+  set serverURL(value: string) {
+    this.$store.commit("updateServerURL", value);
   }
 
-  showServerUsers() {
-    this.$store.commit("jellyfin/users/clearUsers");
-    this.$router.push("/users");
+  async showServerUsers() {
+    try {
+      this.showLoading = true;
+      await this.$store.commit("clearUsers");
+      await this.$store.dispatch("loadUsers");
+      await this.$router.push("/login");
+    } catch (e) {
+      this.showLoading = false;
+      this.errorMessage = e;
+    }
   }
 }
 </script>
-
-<!--<style lang="sass">
-body
-  background-color: black
-</style>-->
