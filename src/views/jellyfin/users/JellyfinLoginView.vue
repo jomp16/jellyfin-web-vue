@@ -139,6 +139,7 @@ export default class JellyfinUsersView extends Vue {
 
       await this.$router.push("/home");
     } catch (e) {
+      this.showLoading = false;
       this.errorMessage = e;
     }
   }

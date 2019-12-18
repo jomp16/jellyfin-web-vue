@@ -36,6 +36,23 @@ export default {
       commit("setAccessToken", response.AccessToken);
       commit("setCurrentUser", response.User);
       commit("setSessionInfo", response.SessionInfo);
+    },
+    async logout(
+      // @ts-ignore
+      { state, commit, rootState }
+    ) {
+      let jellyfinApi = new JellyfinApi(
+        rootState.jellyfin.serverUrl,
+        rootState.jellyfin.accessToken
+      );
+
+      let response = await jellyfinApi.logout();
+
+      if (response) {
+        commit("setAccessToken", null);
+        commit("setCurrentUser", null);
+        commit("setSessionInfo", null);
+      }
     }
   }
 };

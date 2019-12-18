@@ -1,19 +1,27 @@
 <template>
-  <section class="hero is-black is-fullheight">
-    <div class="hero-body">
-      <div class="container">
-        {{ currentUser }}
+  <div>
+    <Navbar />
+    <section class="hero is-black is-fullheight-with-navbar">
+      <div class="hero-body">
+        <div class="container">
+          {{ currentUser }}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue } from "vue-property-decorator";
 import Component from "vue-class-component";
 import { User } from "@/axios/jellyfin/objects/User";
+import Navbar from "@/components/navbar/Navbar.vue";
 
-@Component
+@Component({
+  components: {
+    Navbar
+  }
+})
 export default class JellyfinHomeView extends Vue {
   // noinspection JSUnusedGlobalSymbols
   mounted() {

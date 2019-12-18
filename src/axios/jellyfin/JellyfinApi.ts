@@ -97,4 +97,22 @@ export class JellyfinApi {
       throw new Error(e.response.data);
     }
   }
+
+  async logout(): Promise<boolean> {
+    try {
+      let response = await axios.post(
+        `https://cors-anywhere.herokuapp.com/${this.url}/Sessions/Logout`,
+        undefined,
+        {
+          headers: this.getRequestHeaders()
+        }
+      );
+
+      return response.status === 204;
+    } catch (e) {
+      if (e.response.status === 401) return true;
+
+      throw new Error(e.message);
+    }
+  }
 }
