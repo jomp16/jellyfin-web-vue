@@ -22,9 +22,9 @@ const routes = [
     path: "/users",
     name: "users",
     component: () =>
-        import(
-            /* webpackChunkName: "users" */ "../views/jellyfin/users/JellyfinUsersView.vue"
-            )
+      import(
+        /* webpackChunkName: "users" */ "../views/jellyfin/users/JellyfinUsersView.vue"
+      )
   },
   {
     path: "/about",

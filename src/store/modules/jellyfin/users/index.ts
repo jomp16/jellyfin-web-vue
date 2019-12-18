@@ -1,7 +1,6 @@
 import { JellyfinUsersState } from "@/store/modules/jellyfin/users/state";
 import { User } from "@/axios/jellyfin/objects/User";
 import { JellyfinApi } from "@/axios/jellyfin/JellyfinApi";
-import { JellyfinState } from "@/store/modules/jellyfin/state";
 
 export default {
   namespaced: true,
@@ -13,6 +12,9 @@ export default {
     },
     addUsers(state: JellyfinUsersState, users: User[]) {
       state.users.push(...users);
+    },
+    clearUsers(state: JellyfinUsersState) {
+      state.users = [];
     }
   },
   actions: {
