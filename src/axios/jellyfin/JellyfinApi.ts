@@ -2,6 +2,7 @@ import { SystemInfo } from "@/axios/jellyfin/objects/SystemInfo";
 import axios from "axios";
 import { User } from "@/axios/jellyfin/objects/User";
 import { AuthenticateByName } from "@/axios/jellyfin/objects/AuthenticateByName";
+import { ResumableItems } from "@/axios/jellyfin/objects/ResumableItems";
 
 export class JellyfinApi {
   private readonly url!: string;
@@ -112,6 +113,21 @@ export class JellyfinApi {
     } catch (e) {
       if (e.response.status === 401) return true;
 
+      throw new Error(e.message);
+    }
+  }
+
+  async getResumableItems(userId: string): Promise<ResumableItems> {
+    try {
+      let response = await axios.get<ResumableItems>(
+        `${this.url}/Users/${userId}/Items/Resume`,
+        {
+          headers: this.getRequestHeaders()
+        }
+      );
+
+      return response.data;
+    } catch (e) {
       throw new Error(e.message);
     }
   }

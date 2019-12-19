@@ -114,7 +114,7 @@ export default class JellyfinUsersView extends Vue {
   private errorMessage: string | null = null;
 
   // noinspection JSUnusedGlobalSymbols
-  async mounted() {
+  async created() {
     this.showLoading = false;
   }
 

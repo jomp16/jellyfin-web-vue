@@ -61,6 +61,7 @@ export default class JellyfinServerUrlView extends Vue {
   async showServerUsers() {
     try {
       this.showLoading = true;
+      await this.$store.dispatch("getSystemInfo");
       await this.$store.commit("clearUsers");
       await this.$store.dispatch("loadUsers");
       await this.$router.push("/login");

@@ -1,6 +1,7 @@
 import { JellyfinUsersState } from "@/store/modules/jellyfin/users/state";
 import { User } from "@/axios/jellyfin/objects/User";
 import { JellyfinApi } from "@/axios/jellyfin/JellyfinApi";
+import { ResumableItems } from "@/axios/jellyfin/objects/ResumableItems";
 
 export default {
   state: new JellyfinUsersState(),
@@ -11,6 +12,12 @@ export default {
     },
     clearUsers(state: JellyfinUsersState) {
       state.users = [];
+    },
+    setResumableItems(
+      state: JellyfinUsersState,
+      resumableItems: ResumableItems | null
+    ) {
+      state.resumableItems = resumableItems;
     }
   },
   actions: {
@@ -53,6 +60,21 @@ export default {
         commit("setCurrentUser", null);
         commit("setSessionInfo", null);
       }
+    },
+    async getResumableItems(
+      // @ts-ignore
+      { state, commit, rootState }
+    ) {
+      let jellyfinApi = new JellyfinApi(
+        rootState.jellyfin.serverUrl,
+        rootState.jellyfin.accessToken
+      );
+
+      let resumableItems = await jellyfinApi.getResumableItems(
+        rootState.jellyfin.currentUser.Id
+      );
+
+      commit("setResumableItems", resumableItems);
     }
   }
 };

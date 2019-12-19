@@ -5,7 +5,7 @@ import Component from "vue-class-component";
 @Component
 export default class Index extends Vue {
   // noinspection JSUnusedGlobalSymbols
-  mounted() {
+  created() {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/server-url");
     } else {
