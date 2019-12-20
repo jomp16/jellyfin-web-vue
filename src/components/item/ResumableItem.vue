@@ -18,14 +18,21 @@
     <div class="card-content has-background-black has-text-white">
       <div class="content has-text-centered">
         <div class="is-text-overflow">
-          <span class="has-text-weight-bold">
+          <router-link
+            class="has-text-weight-bold normal-link"
+            :to="{ path: `/series/${item.SeriesId}` }"
+          >
             {{ item.SeriesName }}
-          </span>
+          </router-link>
         </div>
         <div class="is-text-overflow">
-          <span> S{{ item.ParentIndexNumber }}:E{{ item.IndexNumber }} </span>
-          -
-          <span>{{ item.Name }}</span>
+          <router-link
+            class="normal-link"
+            :to="{ path: `/episode/${item.Id}` }"
+          >
+            S{{ item.ParentIndexNumber }}:E{{ item.IndexNumber }} -
+            {{ item.Name }}
+          </router-link>
         </div>
       </div>
     </div>
@@ -42,16 +49,9 @@ export default class ResumableItem extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
+@import "~@/assets/sass/styles.sass"
+
 .card-content
   padding: 0.5rem
-.is-text-overflow
-  overflow: hidden
-  text-overflow: ellipsis
-  white-space: nowrap
-</style>
-
-<style lang="sass">
-.progress.is-extra-small
-  height: 0.3rem
 </style>
