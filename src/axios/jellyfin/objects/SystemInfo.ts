@@ -4,4 +4,26 @@ export interface SystemInfo {
   ProductName: string;
   OperatingSystem: string;
   Id: string;
+  SystemUpdateLevel: string;
+  OperatingSystemDisplayName: string;
+  HasPendingRestart: boolean;
+  IsShuttingDown: boolean;
+  SupportsLibraryMonitor: boolean;
+  WebSocketPortNumber: number;
+  CompletedInstallations: any[];
+  CanSelfRestart: boolean;
+  CanLaunchWebBrowser: boolean;
+  ProgramDataPath: string;
+  WebPath: string;
+  ItemsByNamePath: string;
+  CachePath: string;
+  LogPath: string;
+  InternalMetadataPath: string;
+  TranscodingTempPath: string;
+  HttpServerPortNumber: number;
+  SupportsHttps: boolean;
+  HttpsPortNumber: number;
+  HasUpdateAvailable: boolean;
+  EncoderLocation: string;
+  SystemArchitecture: string;
 }

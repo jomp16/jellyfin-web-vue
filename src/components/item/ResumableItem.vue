@@ -50,8 +50,6 @@ export default class ResumableItem extends Vue {
 </script>
 
 <style lang="sass">
-@import "~@/assets/sass/styles.sass"
-
 .card-content
   padding: 0.5rem
 </style>

@@ -4,14 +4,18 @@
     <section class="hero is-black is-fullheight-with-navbar">
       <div class="section">
         <div class="container is-fluid">
-          <span class="has-text-weight-bold is-size-4">Continue Watching</span>
-          <div class="columns">
-            <div
-              class="column is-one-fifth"
-              v-for="item in resumableItems.Items"
-              :key="item.Id"
-            >
-              <ResumableItem :item="item" />
+          <div v-if="resumableItems != null && resumableItems.Items.length > 0">
+            <span class="has-text-weight-bold is-size-4">
+              Continue Watching
+            </span>
+            <div class="columns">
+              <div
+                class="column is-one-fifth"
+                v-for="item in resumableItems.Items"
+                :key="item.Id"
+              >
+                <ResumableItem :item="item" />
+              </div>
             </div>
           </div>
         </div>
@@ -45,14 +49,16 @@ export default class JellyfinHomeView extends Vue {
       return;
     }
 
-    await this.$store.dispatch("getResumableItems");
+    if (this.resumableItems === null || this.resumableItems.Items.length <= 0) {
+      await this.$store.dispatch("getResumableItems");
+    }
   }
 
   get currentUser(): User {
     return this.$store.state.jellyfin.currentUser;
   }
 
-  get resumableItems(): ResumableItems {
+  get resumableItems(): ResumableItems | null {
     return this.$store.state.jellyfin.users.resumableItems;
   }
 }

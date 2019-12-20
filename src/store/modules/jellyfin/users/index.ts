@@ -59,6 +59,8 @@ export default {
         commit("setAccessToken", null);
         commit("setCurrentUser", null);
         commit("setSessionInfo", null);
+        commit("setSystemInfo", null);
+        commit("setResumableItems", null);
       }
     },
     async getResumableItems(

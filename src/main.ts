@@ -6,6 +6,7 @@ import "./registerServiceWorker";
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 import "@mdi/font/css/materialdesignicons.css";
+import "@/assets/sass/styles.sass";
 
 Vue.config.productionTip = false;
 
