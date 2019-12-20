@@ -2,15 +2,17 @@
   <div>
     <Navbar :user="currentUser" />
     <section class="hero is-black is-fullheight-with-navbar">
-      <div class="container is-fluid">
-        <span class="has-text-weight-bold is-size-4">Continue Watching</span>
-        <div class="columns is-multiline columns-padding">
-          <div
-            class="column is-3"
-            v-for="item in resumableItems.Items"
-            :key="item.Id"
-          >
-            <ResumableItem :item="item" />
+      <div class="section">
+        <div class="container is-fluid">
+          <span class="has-text-weight-bold is-size-4">Continue Watching</span>
+          <div class="columns">
+            <div
+              class="column is-one-fifth"
+              v-for="item in resumableItems.Items"
+              :key="item.Id"
+            >
+              <ResumableItem :item="item" />
+            </div>
           </div>
         </div>
       </div>

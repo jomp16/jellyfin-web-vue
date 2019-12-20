@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="is-black" v-if="user !== null">
+  <b-navbar type="is-black" v-if="user !== null" wrapper-class="container is-fluid">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/home' }">
         <img :src="jellyfinImageURL" alt="Jellyfin" />

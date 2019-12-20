@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card is-unselectable">
     <div class="card-image">
       <figure class="image">
         <img

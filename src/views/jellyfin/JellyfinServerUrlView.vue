@@ -5,17 +5,9 @@
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-half">
-            <b-notification
-              aria-close-label="Close notification"
-              type="is-danger"
-              v-if="errorMessage !== null"
-            >
-              {{ errorMessage }}
-            </b-notification>
-          </div>
+          <div class="column is-half"></div>
         </div>
-        <div class="columns is-centered">
+        <div class="columns is-centered is-mobile">
           <figure class="image is-128x128">
             <img :src="jellyfinImageURL" alt="Jellyfin Icon" />
           </figure>
