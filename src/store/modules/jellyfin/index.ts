@@ -31,11 +31,29 @@ export default {
   },
   actions: {
     // @ts-ignore
-    async getSystemInfo({ commit, rootState }) {
+    async getPublicSystemInfo({ commit, rootState }) {
       let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl, null);
       let systemInfo = await jellyfinApi.getPublicSystemInfo();
 
       commit("setSystemInfo", systemInfo);
+    },
+    // @ts-ignore
+    async getSystemInfo({ state, commit, dispatch }) {
+      try {
+        let jellyfinApi = new JellyfinApi(state.serverUrl, state.accessToken);
+        let systemInfo = await jellyfinApi.getSystemInfo();
+
+        commit("setSystemInfo", systemInfo);
+      } catch (e) {
+        if (e.message === "Session is expired, login again.") {
+          commit("setFlashMessage", e.message);
+          await dispatch("logout");
+
+          return;
+        }
+
+        throw e;
+      }
     }
   },
   modules: {

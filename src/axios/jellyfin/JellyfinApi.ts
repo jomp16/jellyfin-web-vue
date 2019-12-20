@@ -1,5 +1,5 @@
-import { SystemInfo } from "@/axios/jellyfin/objects/SystemInfo";
 import axios from "axios";
+import { SystemInfo } from "@/axios/jellyfin/objects/SystemInfo";
 import { User } from "@/axios/jellyfin/objects/User";
 import { AuthenticateByName } from "@/axios/jellyfin/objects/AuthenticateByName";
 import { ResumableItems } from "@/axios/jellyfin/objects/ResumableItems";
@@ -16,30 +16,6 @@ export class JellyfinApi {
   constructor(url: string, accessToken: string | null) {
     this.url = url;
     this.accessToken = accessToken;
-  }
-
-  async getPublicSystemInfo(): Promise<SystemInfo> {
-    let response = await axios.get<SystemInfo>(
-      `${this.url}/System/Info/Public`
-    );
-
-    return response.data;
-  }
-
-  async getPublicUsers(): Promise<User> {
-    try {
-      let response = await axios.get<User>(`${this.url}/users/public`);
-
-      return response.data;
-    } catch (e) {
-      if (!e.status) {
-        throw new Error(
-          "Server is offline. Start the server or check the URL."
-        );
-      } else {
-        throw new Error(e.message);
-      }
-    }
   }
 
   private getRequestHeaders() {
@@ -68,6 +44,52 @@ export class JellyfinApi {
     }
 
     return headers;
+  }
+
+  async getPublicSystemInfo(): Promise<SystemInfo> {
+    let response = await axios.get<SystemInfo>(
+      `https://cors-anywhere.herokuapp.com/${this.url}/System/Info/Public`
+    );
+
+    return response.data;
+  }
+
+  async getSystemInfo(): Promise<SystemInfo> {
+    try {
+      let response = await axios.get<SystemInfo>(
+        `https://cors-anywhere.herokuapp.com/${this.url}/System/Info`,
+        {
+          headers: this.getRequestHeaders()
+        }
+      );
+
+      return response.data;
+    } catch (e) {
+      if (e.response.status === 401) {
+        // Login error
+        throw new Error("Session is expired, login again.");
+      }
+
+      throw new Error(e.message);
+    }
+  }
+
+  async getPublicUsers(): Promise<User> {
+    try {
+      let response = await axios.get<User>(
+        `https://cors-anywhere.herokuapp.com/${this.url}/users/public`
+      );
+
+      return response.data;
+    } catch (e) {
+      if (!e.status) {
+        throw new Error(
+          "Server is offline. Start the server or check the URL."
+        );
+      } else {
+        throw new Error(e.message);
+      }
+    }
   }
 
   async tryLoginWithUsername(
@@ -120,7 +142,7 @@ export class JellyfinApi {
   async getResumableItems(userId: string): Promise<ResumableItems> {
     try {
       let response = await axios.get<ResumableItems>(
-        `${this.url}/Users/${userId}/Items/Resume`,
+        `https://cors-anywhere.herokuapp.com/${this.url}/Users/${userId}/Items/Resume`,
         {
           headers: this.getRequestHeaders()
         }
@@ -128,6 +150,11 @@ export class JellyfinApi {
 
       return response.data;
     } catch (e) {
+      if (e.response.status === 401) {
+        // Login error
+        throw new Error("Session is expired, login again.");
+      }
+
       throw new Error(e.message);
     }
   }

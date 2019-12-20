@@ -46,7 +46,7 @@ export default {
     },
     async logout(
       // @ts-ignore
-      { state, commit, rootState }
+      { commit, rootState }
     ) {
       let jellyfinApi = new JellyfinApi(
         rootState.jellyfin.serverUrl,
@@ -63,7 +63,7 @@ export default {
     },
     async getResumableItems(
       // @ts-ignore
-      { state, commit, rootState }
+      { commit, rootState }
     ) {
       let jellyfinApi = new JellyfinApi(
         rootState.jellyfin.serverUrl,

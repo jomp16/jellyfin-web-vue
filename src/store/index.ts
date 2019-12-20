@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
 import Jellyfin from "@/store/modules/jellyfin";
+import Flash from "@/store/modules/flash";
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    jellyfin: Jellyfin
+    jellyfin: Jellyfin,
+    flash: Flash
   },
   plugins: [vuexLocal.plugin]
 });

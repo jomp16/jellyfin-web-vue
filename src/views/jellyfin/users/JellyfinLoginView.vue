@@ -4,13 +4,17 @@
 
     <div class="hero-body">
       <div class="container">
-        <b-notification
-          aria-close-label="Close notification"
-          type="is-danger"
-          v-if="errorMessage !== null"
-        >
-          {{ errorMessage }}
-        </b-notification>
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <b-notification
+              aria-close-label="Close notification"
+              type="is-danger"
+              v-if="errorMessage !== null"
+            >
+              {{ errorMessage }}
+            </b-notification>
+          </div>
+        </div>
         <div v-if="selectedUser === null">
           <div class="columns is-centered">
             <div

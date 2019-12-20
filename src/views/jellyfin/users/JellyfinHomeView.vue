@@ -34,14 +34,16 @@ import ResumableItem from "@/components/item/ResumableItem.vue";
 })
 export default class JellyfinHomeView extends Vue {
   // noinspection JSUnusedGlobalSymbols
-  created() {
+  async created() {
+    await this.$store.dispatch("getSystemInfo");
+
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("/server-url");
+      await this.$router.push("/server-url");
 
       return;
     }
 
-    this.$store.dispatch("getResumableItems");
+    await this.$store.dispatch("getResumableItems");
   }
 
   get currentUser(): User {

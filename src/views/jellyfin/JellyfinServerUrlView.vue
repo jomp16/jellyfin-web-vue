@@ -4,13 +4,17 @@
 
     <div class="hero-body">
       <div class="container">
-        <b-notification
-          aria-close-label="Close notification"
-          type="is-danger"
-          v-if="errorMessage !== null"
-        >
-          {{ errorMessage }}
-        </b-notification>
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <b-notification
+              aria-close-label="Close notification"
+              type="is-danger"
+              v-if="errorMessage !== null"
+            >
+              {{ errorMessage }}
+            </b-notification>
+          </div>
+        </div>
         <div class="columns is-centered">
           <figure class="image is-128x128">
             <img :src="jellyfinImageURL" alt="Jellyfin Icon" />
@@ -50,6 +54,13 @@ export default class JellyfinServerUrlView extends Vue {
   private showLoading: boolean = false;
   private errorMessage: string | null = null;
 
+  // noinspection JSUnusedGlobalSymbols
+  async created() {
+    this.errorMessage = this.$store.getters.flashMessage;
+    this.showLoading = false;
+    await this.$store.commit("setFlashMessage", null);
+  }
+
   get serverURL(): string {
     return this.$store.state.jellyfin.serverUrl;
   }
@@ -61,7 +72,7 @@ export default class JellyfinServerUrlView extends Vue {
   async showServerUsers() {
     try {
       this.showLoading = true;
-      await this.$store.dispatch("getSystemInfo");
+      await this.$store.dispatch("getPublicSystemInfo");
       await this.$store.commit("clearUsers");
       await this.$store.dispatch("loadUsers");
       await this.$router.push("/login");
