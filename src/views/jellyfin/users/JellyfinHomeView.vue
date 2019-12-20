@@ -1,16 +1,18 @@
 <template>
   <div>
+    <b-loading :is-full-page="true" :active.sync="showLoading" />
+
     <Navbar :user="currentUser" />
     <section class="hero is-black is-fullheight-with-navbar">
-      <div class="section">
+      <div class="section" v-if="!showLoading">
         <div class="container is-fluid">
           <div v-if="resumableItems != null && resumableItems.Items.length > 0">
-            <span class="has-text-weight-bold is-size-4">
+            <span class="has-text-weight-normal is-size-4">
               Continue Watching
             </span>
-            <div class="columns">
+            <div class="columns is-mobile">
               <div
-                class="column is-one-fifth"
+                class="column is-one-fifth-tablet is-two-fifths-mobile"
                 v-for="item in resumableItems.Items"
                 :key="item.Id"
               >
@@ -39,6 +41,8 @@ import ResumableItem from "@/components/item/ResumableItem.vue";
   }
 })
 export default class JellyfinHomeView extends Vue {
+  private showLoading: boolean = true;
+
   // noinspection JSUnusedGlobalSymbols
   async created() {
     await this.$store.dispatch("getSystemInfo");
@@ -52,6 +56,8 @@ export default class JellyfinHomeView extends Vue {
     if (this.resumableItems === null || this.resumableItems.Items.length <= 0) {
       await this.$store.dispatch("getResumableItems");
     }
+
+    this.showLoading = false;
   }
 
   get currentUser(): User {

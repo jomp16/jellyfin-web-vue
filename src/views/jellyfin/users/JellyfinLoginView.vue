@@ -3,24 +3,23 @@
     <b-loading :is-full-page="true" :active.sync="showLoading" />
 
     <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
+      <div class="container is-fluid">
+        <div class="columns is-centered" v-if="errorMessage !== null">
           <div class="column is-half">
             <b-notification
               aria-close-label="Close notification"
               type="is-danger"
-              v-if="errorMessage !== null"
             >
               {{ errorMessage }}
             </b-notification>
           </div>
         </div>
         <div v-if="selectedUser === null">
-          <div class="columns is-centered">
+          <div class="columns is-mobile is-centered is-multiline">
             <div
               v-for="(user, index) in paginatedItems"
               :key="index"
-              class="column is-2"
+              class="column is-half"
             >
               <UserCard
                 :user="user"

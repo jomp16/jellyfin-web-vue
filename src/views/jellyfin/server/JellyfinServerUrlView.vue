@@ -3,7 +3,7 @@
     <b-loading :is-full-page="true" :active.sync="showLoading" />
 
     <div class="hero-body">
-      <div class="container">
+      <div class="container is-fluid">
         <div class="columns is-centered">
           <div class="column is-half"></div>
         </div>

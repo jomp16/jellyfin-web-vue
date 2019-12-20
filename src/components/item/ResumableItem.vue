@@ -8,12 +8,13 @@
           "
           alt="Primary episode image"
         />
+        <div class="progress-bar is-extra-small">
+          <div
+            class="progress-bar-status is-extra-small"
+            :style="{ width: `${item.UserData.PlayedPercentage}%` }"
+          ></div>
+        </div>
       </figure>
-      <b-progress
-        :value="item.UserData.PlayedPercentage"
-        type="is-info is-radiusless"
-        size="is-extra-small"
-      />
     </div>
     <div class="card-content has-background-black has-text-white">
       <div class="content has-text-centered">
@@ -52,4 +53,13 @@ export default class ResumableItem extends Vue {
 <style lang="sass">
 .card-content
   padding: 0.5rem
+
+.progress-bar
+  position: absolute
+  bottom: 0
+  width: 100%
+  background-color: rgba(0, 0, 0, .5)
+
+  .progress-bar-status
+    background-color: #00a4dc
 </style>
