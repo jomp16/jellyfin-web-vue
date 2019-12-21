@@ -19,7 +19,7 @@
             <div
               v-for="(user, index) in paginatedItems"
               :key="index"
-              class="column is-half"
+              class="column is-half-mobile is-2-tablet"
             >
               <UserCard
                 :user="user"
