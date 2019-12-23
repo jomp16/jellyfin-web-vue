@@ -24,7 +24,11 @@
             <span class="has-text-weight-normal is-size-4">
               Next Up
             </span>
-            <div class="columns is-mobile next-up-slider">
+            <Carousel
+              :length="nextUpEpisodes.Items.length"
+              class="columns is-mobile"
+              :paginationFactor="365"
+            >
               <div
                 class="column is-one-fifth-tablet is-two-fifths-mobile"
                 v-for="item in nextUpEpisodes.Items"
@@ -32,7 +36,7 @@
               >
                 <Item :item="item" />
               </div>
-            </div>
+            </Carousel>
           </div>
         </div>
       </div>
@@ -45,13 +49,15 @@ import { Vue } from "vue-property-decorator";
 import Component from "vue-class-component";
 import { User } from "@/axios/jellyfin/objects/User";
 import Navbar from "@/components/navbar/Navbar.vue";
+import Carousel from "@/components/carousel/Carousel.vue";
 import { ResumableItems } from "@/axios/jellyfin/objects/ResumableItems";
 import Item from "@/components/item/Item.vue";
 
 @Component({
   components: {
     Item,
-    Navbar
+    Navbar,
+    Carousel
   }
 })
 export default class JellyfinHomeView extends Vue {
@@ -106,4 +112,6 @@ export default class JellyfinHomeView extends Vue {
   padding-top: 1rem
 .columns
   padding-top: 0.5rem
+.next-up-slider
+  margin: 1rem
 </style>
