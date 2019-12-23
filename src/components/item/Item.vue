@@ -8,13 +8,28 @@
           "
           alt="Primary episode image"
         />
-        <div class="progress-bar is-extra-small">
+        <div
+          class="progress-bar is-extra-small"
+          v-if="item.UserData.PlayedPercentage !== undefined"
+        >
           <div
             class="progress-bar-status is-extra-small"
             :style="{ width: `${item.UserData.PlayedPercentage}%` }"
           ></div>
         </div>
       </figure>
+      <div class="is-overlay overlay-image">
+        <div class="overlay-container is-flex">
+          <span class="mdi mdi-play overlay-image-play icon-circle-hover" />
+          <div class="overlay-more-actions">
+            <span class="mdi mdi-check icon-circle-action icon-circle-hover" />
+            <span class="mdi mdi-heart icon-circle-action icon-circle-hover" />
+            <span
+              class="mdi mdi-dots-horizontal icon-circle-action icon-circle-hover"
+            />
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-content has-background-black has-text-white">
       <div class="content has-text-centered">

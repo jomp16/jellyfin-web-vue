@@ -18,6 +18,12 @@ export default {
       resumableItems: ResumableItems | null
     ) {
       state.resumableItems = resumableItems;
+    },
+    setNextUpEpisodes(
+      state: JellyfinUsersState,
+      nextUpEpisodes: ResumableItems | null
+    ) {
+      state.nextUpEpisodes = nextUpEpisodes;
     }
   },
   actions: {
@@ -77,6 +83,19 @@ export default {
       );
 
       commit("setResumableItems", resumableItems);
+    },
+    async getNextUpEpisodes(
+      // @ts-ignore
+      { commit, rootState }, payload
+    ) {
+      let jellyfinApi = new JellyfinApi(
+        rootState.jellyfin.serverUrl,
+        rootState.jellyfin.accessToken
+      );
+
+      let nextUpEpisodes = await jellyfinApi.getNextUpEpisodes(payload);
+
+      commit("setNextUpEpisodes", nextUpEpisodes);
     }
   }
 };

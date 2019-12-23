@@ -16,7 +16,21 @@
                 v-for="item in resumableItems.Items"
                 :key="item.Id"
               >
-                <ResumableItem :item="item" />
+                <Item :item="item" />
+              </div>
+            </div>
+          </div>
+          <div v-if="nextUpEpisodes != null && nextUpEpisodes.Items.length > 0">
+            <span class="has-text-weight-normal is-size-4">
+              Next Up
+            </span>
+            <div class="columns is-mobile next-up-slider">
+              <div
+                class="column is-one-fifth-tablet is-two-fifths-mobile"
+                v-for="item in nextUpEpisodes.Items"
+                :key="item.Id"
+              >
+                <Item :item="item" />
               </div>
             </div>
           </div>
@@ -32,11 +46,11 @@ import Component from "vue-class-component";
 import { User } from "@/axios/jellyfin/objects/User";
 import Navbar from "@/components/navbar/Navbar.vue";
 import { ResumableItems } from "@/axios/jellyfin/objects/ResumableItems";
-import ResumableItem from "@/components/item/ResumableItem.vue";
+import Item from "@/components/item/Item.vue";
 
 @Component({
   components: {
-    ResumableItem,
+    Item,
     Navbar
   }
 })
@@ -57,6 +71,17 @@ export default class JellyfinHomeView extends Vue {
       await this.$store.dispatch("getResumableItems");
     }
 
+    if (this.nextUpEpisodes === null || this.nextUpEpisodes.Items.length <= 0) {
+      await this.$store.dispatch("getNextUpEpisodes", {
+        Limit: 24,
+        Fields: "PrimaryImageAspectRatio,SeriesInfo,DateCreated,BasicSyncInfo",
+        UserId: this.$store.state.jellyfin.currentUser.Id,
+        ImageTypeLimit: 1,
+        EnableImageTypes: "Primary,Backdrop,Banner,Thumb",
+        EnableTotalRecordCount: false
+      });
+    }
+
     this.showLoading = false;
   }
 
@@ -67,6 +92,10 @@ export default class JellyfinHomeView extends Vue {
   get resumableItems(): ResumableItems | null {
     return this.$store.state.jellyfin.users.resumableItems;
   }
+
+  get nextUpEpisodes(): ResumableItems | null {
+    return this.$store.state.jellyfin.users.nextUpEpisodes;
+  }
 }
 </script>
 
@@ -75,4 +104,6 @@ export default class JellyfinHomeView extends Vue {
   padding-top: 1rem
 .columns-padding
   padding-top: 1rem
+.columns
+  padding-top: 0.5rem
 </style>

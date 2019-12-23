@@ -28,4 +28,6 @@ export interface Item {
   BackdropImageTags: any[];
   LocationType: string;
   MediaType: string;
+  DateCreated: Date;
+  PrimaryImageAspectRatio: number;
 }

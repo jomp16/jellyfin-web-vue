@@ -158,4 +158,25 @@ export class JellyfinApi {
       throw new Error(e.message);
     }
   }
+
+  async getNextUpEpisodes(options: any): Promise<ResumableItems> {
+    try {
+      let response = await axios.get<ResumableItems>(
+        `https://cors-anywhere.herokuapp.com/${this.url}/Shows/NextUp`,
+        {
+          params: options,
+          headers: this.getRequestHeaders()
+        }
+      );
+
+      return response.data;
+    } catch (e) {
+      if (e.response.status === 401) {
+        // Login error
+        throw new Error("Session is expired, login again.");
+      }
+
+      throw new Error(e.message);
+    }
+  }
 }
