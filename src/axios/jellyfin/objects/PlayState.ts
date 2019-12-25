@@ -1,6 +1,6 @@
 export interface PlayState {
-    CanSeek: boolean;
-    IsPaused: boolean;
-    IsMuted: boolean;
-    RepeatMode: string;
+  CanSeek: boolean;
+  IsPaused: boolean;
+  IsMuted: boolean;
+  RepeatMode: string;
 }

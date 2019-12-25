@@ -30,15 +30,13 @@ export default {
     }
   },
   actions: {
-    // @ts-ignore
-    async getPublicSystemInfo({ commit, rootState }) {
+    async getPublicSystemInfo({ commit, rootState }: any) {
       let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl, null);
       let systemInfo = await jellyfinApi.getPublicSystemInfo();
 
       commit("setSystemInfo", systemInfo);
     },
-    // @ts-ignore
-    async getSystemInfo({ state, commit, dispatch }) {
+    async getSystemInfo({ state, commit, dispatch }: any) {
       try {
         let jellyfinApi = new JellyfinApi(state.serverUrl, state.accessToken);
         let systemInfo = await jellyfinApi.getSystemInfo();

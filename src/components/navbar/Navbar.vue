@@ -1,7 +1,12 @@
 <template>
-  <b-navbar type="is-black" v-if="user !== null" wrapper-class="container is-fluid">
+  <b-navbar
+    type="is-black"
+    v-if="user !== null"
+    wrapper-class="container is-fluid"
+  >
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/home' }">
+        <!--suppress HtmlUnknownTarget -->
         <img :src="jellyfinImageURL" alt="Jellyfin" />
       </b-navbar-item>
     </template>
@@ -32,6 +37,7 @@ import { User } from "@/axios/jellyfin/objects/User";
 
 @Component
 export default class Navbar extends Vue {
+  // noinspection JSUnusedLocalSymbols
   private jellyfinImageURL = require("@/assets/jellyfin_icon.png");
   @Prop() private user!: User | null;
 

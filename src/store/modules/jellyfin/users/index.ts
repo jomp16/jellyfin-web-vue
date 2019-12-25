@@ -27,8 +27,7 @@ export default {
     }
   },
   actions: {
-    // @ts-ignore
-    async loadUsers({ state, commit, rootState }) {
+    async loadUsers({ state, commit, rootState }: any) {
       if (state.users.length === 0) {
         let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl, null);
 
@@ -38,10 +37,8 @@ export default {
       }
     },
     async loginWithUsername(
-      // @ts-ignore
-      { state, commit, rootState },
-      // @ts-ignore
-      { username, password }
+      { state, commit, rootState }: any,
+      { username, password }: { username: string; password: string }
     ) {
       let jellyfinApi = new JellyfinApi(rootState.jellyfin.serverUrl, null);
       let response = await jellyfinApi.tryLoginWithUsername(username, password);
@@ -50,10 +47,7 @@ export default {
       commit("setCurrentUser", response.User);
       commit("setSessionInfo", response.SessionInfo);
     },
-    async logout(
-      // @ts-ignore
-      { commit, rootState }
-    ) {
+    async logout({ commit, rootState }: any) {
       let jellyfinApi = new JellyfinApi(
         rootState.jellyfin.serverUrl,
         rootState.jellyfin.accessToken
@@ -69,10 +63,7 @@ export default {
         commit("setResumableItems", null);
       }
     },
-    async getResumableItems(
-      // @ts-ignore
-      { commit, rootState }
-    ) {
+    async getResumableItems({ commit, rootState }: any) {
       let jellyfinApi = new JellyfinApi(
         rootState.jellyfin.serverUrl,
         rootState.jellyfin.accessToken

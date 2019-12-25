@@ -8,7 +8,7 @@ export default {
     }
   },
   mutations: {
-    setFlashMessage(state: FlashState, flashMessage: string|null) {
+    setFlashMessage(state: FlashState, flashMessage: string | null) {
       state.flashMessage = flashMessage;
     }
   }
