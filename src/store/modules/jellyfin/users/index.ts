@@ -75,10 +75,7 @@ export default {
 
       commit("setResumableItems", resumableItems);
     },
-    async getNextUpEpisodes(
-      // @ts-ignore
-      { commit, rootState }, payload
-    ) {
+    async getNextUpEpisodes({ commit, rootState }: any, payload: any) {
       let jellyfinApi = new JellyfinApi(
         rootState.jellyfin.serverUrl,
         rootState.jellyfin.accessToken

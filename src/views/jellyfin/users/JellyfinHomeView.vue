@@ -61,7 +61,7 @@ import Item from "@/components/item/Item.vue";
   }
 })
 export default class JellyfinHomeView extends Vue {
-  private showLoading: boolean = true;
+  private showLoading: boolean = false;
 
   // noinspection JSUnusedGlobalSymbols
   async created() {
@@ -73,20 +73,20 @@ export default class JellyfinHomeView extends Vue {
       return;
     }
 
-    if (this.resumableItems === null || this.resumableItems.Items.length <= 0) {
-      await this.$store.dispatch("getResumableItems");
-    }
+    // if (this.resumableItems === null || this.resumableItems.Items.length <= 0) {
+    await this.$store.dispatch("getResumableItems");
+    // }
 
-    if (this.nextUpEpisodes === null || this.nextUpEpisodes.Items.length <= 0) {
-      await this.$store.dispatch("getNextUpEpisodes", {
-        Limit: 24,
-        Fields: "PrimaryImageAspectRatio,SeriesInfo,DateCreated,BasicSyncInfo",
-        UserId: this.$store.state.jellyfin.currentUser.Id,
-        ImageTypeLimit: 1,
-        EnableImageTypes: "Primary,Backdrop,Banner,Thumb",
-        EnableTotalRecordCount: false
-      });
-    }
+    // if (this.nextUpEpisodes === null || this.nextUpEpisodes.Items.length <= 0) {
+    await this.$store.dispatch("getNextUpEpisodes", {
+      Limit: 24,
+      Fields: "PrimaryImageAspectRatio,SeriesInfo,DateCreated,BasicSyncInfo",
+      UserId: this.$store.state.jellyfin.currentUser.Id,
+      ImageTypeLimit: 1,
+      EnableImageTypes: "Primary,Backdrop,Banner,Thumb",
+      EnableTotalRecordCount: false
+    });
+    // }
 
     this.showLoading = false;
   }
